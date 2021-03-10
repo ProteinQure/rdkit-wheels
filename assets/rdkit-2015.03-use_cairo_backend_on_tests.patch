@@ -1,0 +1,12 @@
+diff --git a/rdkit/Chem/Draw/UnitTestSimilarityMaps.py b/rdkit/Chem/Draw/UnitTestSimilarityMaps.py
+index 3b85450..9f39c92 100755
+--- a/rdkit/Chem/Draw/UnitTestSimilarityMaps.py
++++ b/rdkit/Chem/Draw/UnitTestSimilarityMaps.py
+@@ -98,6 +98,7 @@ class TestCase(unittest.TestCase):
+ if __name__ == '__main__':
+   try:
+     import matplotlib
++    matplotlib.use('cairo')
+     from rdkit.Chem.Draw.mplCanvas import Canvas
+   except ImportError:
+     pass

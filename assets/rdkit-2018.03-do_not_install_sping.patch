@@ -1,0 +1,20 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e5edb22..89e7df8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -218,6 +218,7 @@ if(RDK_BUILD_PYTHON_WRAPPERS)
+     if(RDK_INSTALL_PYTHON_TESTS)
+       install(DIRECTORY rdkit DESTINATION ${PYTHON_INSTDIR}
+         COMPONENT python
++        PATTERN "sping" EXCLUDE
+         PATTERN ".svn" EXCLUDE
+         PATTERN "CMake*" EXCLUDE
+         PATTERN "Basement" EXCLUDE
+@@ -225,6 +226,7 @@ if(RDK_BUILD_PYTHON_WRAPPERS)
+     else(RDK_INSTALL_PYTHON_TESTS)
+       install(DIRECTORY rdkit DESTINATION ${PYTHON_INSTDIR}
+         COMPONENT python
++        PATTERN "sping" EXCLUDE
+         PATTERN ".svn" EXCLUDE
+         PATTERN "test_data" EXCLUDE
+         PATTERN "testData" EXCLUDE
