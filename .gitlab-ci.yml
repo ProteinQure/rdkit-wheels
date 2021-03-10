@@ -14,10 +14,12 @@ build-py38:
   image: proteinqure/basic-ci
   stage: deploy
   script:
+    - dnf install -y make
     - make py38
 
 build-py39:
   image: proteinqure/basic-ci
   stage: deploy
   script:
+    - dnf install -y make
     - make py39
