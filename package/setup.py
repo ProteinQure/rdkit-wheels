@@ -10,12 +10,13 @@ requirements = ["numpy"]
 
 PY_MIN_VERSION = os.getenv("PY_MIN_VERSION")
 PY_MAX_VERSION = os.getenv("PY_MAX_VERSION")
+RDKIT_VERSION = os.getenv("RDKIT_VERSION")
 
 # Package setup.
 setup(
     name=package_name,
-    version="2020.09.5",
-    python_version=f">{PY_MIN_VERSION},<{PY_MAX_VERSION}",
+    version=f"{RDKIT_VERSION}",
+    python_requires=f">={PY_MIN_VERSION},<{PY_MAX_VERSION}",
     install_requires=requirements,
     long_description=open("README.md").read(),
     author="ProteinQure team",
