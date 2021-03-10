@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+services:
+  - name: docker:19.03.8-dind
+    alias: docker-in-docker
+
+variables:
+  DOCKER_DRIVER: overlay
+  DOCKER_HOST: tcp://docker-in-docker:2375/
+  DOCKER_REGISTRY: proteinqure
+
+build-py38:
+  image: proteinqure/basic-ci
+  stage: deploy
+  script:
+    - make py38
+
+build-py39:
+  image: proteinqure/basic-ci
+  stage: deploy
+  script:
+    - make py39
