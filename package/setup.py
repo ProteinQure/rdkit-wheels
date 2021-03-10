@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 # Package name
-package_name = "proteinqure_rdkit"
+package_name = "pq_rdkit"
 
 # Specify the dependencies of the package
 requirements = ["numpy"]
