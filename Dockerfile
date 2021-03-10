@@ -18,13 +18,22 @@ ENV PY_MIN_VERSION=3.9.0
 ENV PY_MAX_VERSION=3.10.0
 ENV RDKIT_VERSION=2020.09.5
 
+# Install Python tooling + patchelf
+RUN python3 -m pip install wheel auditwheel twine
+RUN dnf install -y patchelf
+
+# Copy skeleton for the Python package
 ADD package/ /root/package/
 WORKDIR /root/package/
+
+# Copy the source code and build a binary wheel
 RUN cp -r /usr/lib64/python*/site-packages/rdkit rdkit
-RUN python3 -m pip install wheel auditwheel twine
 RUN python3 setup.py bdist_wheel --py-limited-api $PY_API
-RUN dnf install -y patchelf
+
+# Use auditwheel to patch RPATH of the modules and strip unnecessary symbols
 RUN auditwheel repair --strip --plat linux_x86_64 dist/pq_rdkit*.whl
 RUN rename none $PY_API wheelhouse/*
+
+# Upload to package to PQ Pypi
 ARG PYPI_PASSWORD
 RUN python3 -m twine upload -u pqpypi -p $PYPI_PASSWORD --repository-url https://pypi.internal.pq/ wheelhouse/*
