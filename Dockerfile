@@ -1,4 +1,5 @@
-FROM fedora:33
+ARG FEDORA_VERSION
+FROM fedora:$FEDORA_VERSION
 
 # Install build dependencies
 RUN dnf install -y rpm-build rpmdevtools make gcc-c++ cmake flex bison libpq-devel python3-numpy inchi-devel cairo-devel eigen3-devel chrpath swig java-devel junit python3-devel boost-python3-devel catch-devel
