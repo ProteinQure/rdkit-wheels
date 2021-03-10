@@ -13,10 +13,10 @@ RUN rpmbuild -bb /root/rpmbuild/SPECS/rdkit.spec
 # Install the built packages
 RUN ls /root/rpmbuild/RPMS/x86_64/*.rpm | grep -v -P 'debug|devel' | sed -e 's/^/.\//' | xargs dnf install -y
 
-ENV PY_API=cp39
-ENV PY_MIN_VERSION=3.9.0
-ENV PY_MAX_VERSION=3.10.0
-ENV RDKIT_VERSION=2020.09.5
+ARG PY_API
+ARG PY_MIN_VERSION
+ARG PY_MAX_VERSION
+ARG RDKIT_VERSION
 
 # Install Python tooling + patchelf
 RUN python3 -m pip install wheel auditwheel twine
