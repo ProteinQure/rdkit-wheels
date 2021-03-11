@@ -17,7 +17,7 @@ requirements = ["numpy"]
 setup(
     name=package_name,
     version=f"{RDKIT_VERSION}",
-    python_requires=f">={PY_MIN_VERSION},<{PY_MAX_VERSION}",
+    python_requires=f">={PY_MIN_VERSION}",
     install_requires=requirements,
     long_description=open("README.md").read(),
     author="ProteinQure team",
