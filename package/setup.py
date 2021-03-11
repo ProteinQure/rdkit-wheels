@@ -2,15 +2,16 @@
 import os
 from setuptools import find_packages, setup
 
-# Package name
-package_name = "pq_rdkit"
-
-# Specify the dependencies of the package
-requirements = ["numpy"]
-
+PY_API = os.getenv("PY_API")
 PY_MIN_VERSION = os.getenv("PY_MIN_VERSION")
 PY_MAX_VERSION = os.getenv("PY_MAX_VERSION")
 RDKIT_VERSION = os.getenv("RDKIT_VERSION")
+
+# Package name
+package_name = f"pq_rdkit_{PY_API}"
+
+# Specify the dependencies of the package
+requirements = ["numpy"]
 
 # Package setup.
 setup(
