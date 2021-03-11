@@ -2,13 +2,11 @@
 import os
 from setuptools import find_packages, setup
 
-PY_API = os.getenv("PY_API")
-PY_MIN_VERSION = os.getenv("PY_MIN_VERSION")
-PY_MAX_VERSION = os.getenv("PY_MAX_VERSION")
+PY_VER = os.getenv("PY_VER")
 RDKIT_VERSION = os.getenv("RDKIT_VERSION")
 
 # Package name
-package_name = f"pq_rdkit_{PY_API}"
+package_name = f"pq_rdkit_{PY_VER}"
 
 # Specify the dependencies of the package
 requirements = ["numpy"]
@@ -17,7 +15,6 @@ requirements = ["numpy"]
 setup(
     name=package_name,
     version=f"{RDKIT_VERSION}",
-    python_requires=f">={PY_MIN_VERSION}",
     install_requires=requirements,
     long_description=open("README.md").read(),
     author="ProteinQure team",

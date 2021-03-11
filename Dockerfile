@@ -14,9 +14,7 @@ RUN rpmbuild -bb /root/rpmbuild/SPECS/rdkit.spec
 # Install the built packages
 RUN ls /root/rpmbuild/RPMS/x86_64/*.rpm | grep -v -P 'debug|devel' | sed -e 's/^/.\//' | xargs dnf install -y
 
-ARG PY_API
-ARG PY_MIN_VERSION
-ARG PY_MAX_VERSION
+ARG PY_VER
 ARG RDKIT_VERSION
 
 # Install Python tooling + patchelf
@@ -30,11 +28,11 @@ WORKDIR /root/package/
 
 # Copy the source code and build a binary wheel
 RUN cp -r /usr/lib64/python*/site-packages/rdkit rdkit
-RUN python3 setup.py bdist_wheel --py-limited-api $PY_API
+RUN python3 setup.py bdist_wheel --py-limited-api $PY_VER
 
 # Use auditwheel to patch RPATH of the modules and strip unnecessary symbols
 RUN auditwheel repair --strip --plat linux_x86_64 dist/pq_rdkit*.whl
-RUN rename none $PY_API wheelhouse/*
+RUN rename none $PY_VER wheelhouse/*
 
 # Upload to package to PQ Pypi
 ARG PYPI_PASSWORD
