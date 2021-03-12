@@ -10,6 +10,20 @@ variables:
   DOCKER_HOST: tcp://docker-in-docker:2375/
   DOCKER_REGISTRY: proteinqure
 
+build-py36:
+  image: proteinqure/basic-ci
+  stage: deploy
+  script:
+    - dnf install -y make
+    - make py36
+
+build-py37:
+  image: proteinqure/basic-ci
+  stage: deploy
+  script:
+    - dnf install -y make
+    - make py37
+
 build-py38:
   image: proteinqure/basic-ci
   stage: deploy

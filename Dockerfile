@@ -19,6 +19,7 @@ ARG RDKIT_VERSION
 
 # Install Python tooling + patchelf
 RUN python3 -m ensurepip
+RUN python3 -m pip install -U pip
 RUN python3 -m pip install wheel auditwheel twine
 RUN dnf install -y patchelf
 
