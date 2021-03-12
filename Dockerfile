@@ -32,6 +32,7 @@ RUN python3 setup.py bdist_wheel --py-limited-api $PY_VER
 
 # Use auditwheel to patch RPATH of the modules and strip unnecessary symbols
 RUN auditwheel repair --strip --plat linux_x86_64 dist/pq_rdkit*.whl
+RUN rename py3-none ${PY_VER}-${PY_VER} wheelhouse/*
 
 # Upload to package to PQ Pypi
 ARG PYPI_PASSWORD
