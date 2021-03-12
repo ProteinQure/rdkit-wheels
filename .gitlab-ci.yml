@@ -1,6 +1,5 @@
 stages:
-  - deploy-specific
-  - deploy-virtual
+  - deploy
 
 services:
   - name: docker:19.03.8-dind
@@ -13,23 +12,14 @@ variables:
 
 build-py38:
   image: proteinqure/basic-ci
-  stage: deploy-specific
+  stage: deploy
   script:
     - dnf install -y make
     - make py38
 
 build-py39:
   image: proteinqure/basic-ci
-  stage: deploy-specific
+  stage: deploy
   script:
     - dnf install -y make
     - make py39
-
-build-virtual:
-  image: proteinqure/basic-ci
-  stage: deploy-virtual
-  script:
-    - dnf install -y make
-    - python3 -m ensurepip
-    - python3 -m pip install twine wheel
-    - RDKIT_VERSION=2020.9.5 make virtual
