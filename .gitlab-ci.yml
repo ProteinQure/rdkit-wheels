@@ -32,4 +32,4 @@ build-virtual:
     - dnf install -y make
     - python3 -m ensurepip
     - python3 -m pip install twine wheel
-    - RDKIT_VERSION=2020.09.5 make virtual
+    - RDKIT_VERSION=2020.9.5 make virtual
