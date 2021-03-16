@@ -52,7 +52,7 @@ ARG RDKIT_VERSION
 RUN python3.9 -m ensurepip
 RUN python3.9 -m pip install -U pip
 RUN python3.9 -m pip install wheel auditwheel twine
-RUN dnf install -y patchelf
+RUN yum install -y patchelf
 
 # Copy skeleton for the Python package
 ADD package/ /root/package/
