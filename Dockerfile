@@ -16,6 +16,9 @@ RUN cd boost_1_*; \
     ./bootstrap.sh --prefix=/opt/boost --with-python=/opt/python/cp39-cp39/bin/python; \
     ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function" --with=all
 
+# Install numpy
+RUN /opt/python/cp39-cp39/bin/python -m pip install numpy
+
 WORKDIR /root/build/
 ENV CXXFLAGS="-Wl,--as-needed"
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
