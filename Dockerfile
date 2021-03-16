@@ -22,7 +22,7 @@ RUN /opt/python/cp39-cp39/bin/python -m pip install numpy==1.16.6
 
 WORKDIR /root/build/
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
-          -D CMAKE_BUILD_TYPE=RelWithDebInfo \
+          -D CMAKE_BUILD_TYPE=Release \
           -D CMAKE_CXX_FLAGS="-Wno-deprecated-copy" \
           -D RDK_BUILD_INCHI_SUPPORT:BOOL=ON \
           -D RDK_BUILD_THREADSAFE_SSS:BOOL=ON \
