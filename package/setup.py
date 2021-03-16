@@ -8,7 +8,7 @@ RDKIT_VERSION = os.getenv("RDKIT_VERSION")
 package_name = "pq_rdkit"
 
 # Specify the dependencies of the package
-requirements = ["numpy"]
+requirements = ["numpy>=1.16.6"]
 
 # Package setup.
 setup(

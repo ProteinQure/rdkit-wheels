@@ -17,7 +17,7 @@ RUN cd boost_1_*; \
     ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function"
 
 # Install numpy
-RUN /opt/python/cp39-cp39/bin/python -m pip install numpy
+RUN /opt/python/cp39-cp39/bin/python -m pip install numpy==1.16.6
 
 WORKDIR /root/build/
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
