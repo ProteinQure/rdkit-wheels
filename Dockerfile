@@ -15,7 +15,7 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz 
     mv rdkit-Release_${RDKIT_VERSION} /root/build/
 
 ARG BOOST_VERSION
-RUN wget https://dl.bintray.com/boostorg/release/`echo ${BOOST_VERSION} | sed -i 's/\./_/g'`/source/boost_${BOOST_VERSION}.tar.gz
+RUN wget https://dl.bintray.com/boostorg/release/`echo ${BOOST_VERSION} | sed 's/\./_/g'`/source/boost_${BOOST_VERSION}.tar.gz
 RUN tar -xzf boost_1_*
 RUN cd boost_1_*; \
     ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/${PY_VER}/bin/python; \
@@ -42,7 +42,7 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D RDK_TEST_MULTITHREADED:BOOL=OFF \
           -D PYTHON_INCLUDE_DIR=/opt/python/${PY_VER}/include/python${PY_MAJOR_MINOR}/ \
           -D PYTHON_EXECUTABLE:FILEPATH=/opt/python/${PY_VER}/bin/python \
-          -D RDK_BOOST_PYTHON3_NAME=python`echo ${PY_MAJOR_MINOR} | sed -i 's/\.//g'` \
+          -D RDK_BOOST_PYTHON3_NAME=python`echo ${PY_MAJOR_MINOR} | sed 's/\.//g'` \
           -D BOOST_ROOT=/opt/boost/ \
           . -B .
 
