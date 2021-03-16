@@ -1,16 +1,4 @@
-ARG FEDORA_VERSION
-FROM fedora:$FEDORA_VERSION
-
-# Install Python build deps
-RUN dnf install -y wget make gcc openssl-devel bzip2-devel libffi-devel
-ARG PY_RELEASE
-RUN wget https://www.python.org/ftp/python/${PY_RELEASE}/Python-${PY_RELEASE}.tgz && \
-    tar xzf Python-${PY_RELEASE}.tgz && \
-    mv Python-${PY_RELEASE} /root/python/
-
-WORKDIR /root/python/
-RUN ./configure --enable-optimizations --enable-shared
-RUN make altinstall
+FROM quay.io/pypa/manylinux2014_x86_64
 
 # Install build dependencies
 RUN dnf install -y wget make gcc-c++ cmake flex bison inchi-devel cairo-devel eigen3-devel chrpath boost-python3-devel
