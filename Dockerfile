@@ -4,7 +4,7 @@ ARG PY_VER
 ARG RDKIT_VERSION
 
 # Set the LD path correctly
-ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
+ENV LD_LIBRARY_PATH=/opt/python/${PY_VER}/lib/:/opt/boost/lib/
 
 # Install build dependencies
 RUN yum remove -y libX11-devel libXext-devel libXrender-devel mesa-libGL-devel libICE-devel libSM-devel
@@ -17,7 +17,7 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz 
 RUN wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
 RUN tar -xzf boost_1_*
 RUN cd boost_1_*; \
-    ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/cp39-cp39/bin/python; \
+    ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/${PY_VER}/bin/python; \
     ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function"
 
 # Install numpy
