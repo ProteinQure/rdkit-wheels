@@ -15,7 +15,7 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz 
     mv rdkit-Release_${RDKIT_VERSION} /root/build/
 
 ARG BOOST_VERSION
-RUN wget https://dl.bintray.com/boostorg/release/`echo ${BOOST_VERSION} | sed 's/\./_/g'`/source/boost_${BOOST_VERSION}.tar.gz
+RUN wget https://dl.bintray.com/boostorg/release/`echo ${BOOST_VERSION} | sed 's/_/./g'`/source/boost_${BOOST_VERSION}.tar.gz
 RUN tar -xzf boost_1_*
 RUN cd boost_1_*; \
     ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/${PY_VER}/bin/python; \
