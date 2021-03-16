@@ -4,7 +4,8 @@ FROM quay.io/pypa/manylinux2014_x86_64
 ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
 
 # Install build dependencies
-RUN yum install -y wget make gcc-c++ cmake flex bison cairo-devel eigen3-devel chrpath
+RUN yum remove -y libX11-devel libXext-devel libXrender-devel mesa-libGL-devel libICE-devel libSM-devel
+RUN yum install -y wget make gcc-c++ cmake flex bison eigen3-devel chrpath freetype-devel
 
 RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
     tar xfz Release_2020_09_5.tar.gz && \
@@ -25,7 +26,7 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D CMAKE_CXX_FLAGS="-Wno-deprecated-copy" \
           -D RDK_BUILD_INCHI_SUPPORT:BOOL=ON \
           -D RDK_BUILD_THREADSAFE_SSS:BOOL=ON \
-          -D RDK_BUILD_CAIRO_SUPPORT:BOOL=ON \
+          -D RDK_BUILD_CAIRO_SUPPORT:BOOL=OFF \
           -D RDK_BUILD_DESCRIPTORS3D:BOOL=ON \
           -D RDK_BUILD_COORDGEN_SUPPORT:BOOL=OFF \
           -D RDK_BUILD_MOLINTERCHANGE_SUPPORT:BOOL=OFF \
