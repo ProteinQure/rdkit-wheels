@@ -20,9 +20,9 @@ RUN cd boost_1_*; \
 RUN /opt/python/cp39-cp39/bin/python -m pip install numpy
 
 WORKDIR /root/build/
-ENV CXXFLAGS="-Wl,--as-needed"
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D CMAKE_BUILD_TYPE=RelWithDebInfo \
+          -D CMAKE_CXX_FLAGS="-Wno-deprecated-copy" \
           -D RDK_BUILD_INCHI_SUPPORT:BOOL=ON \
           -D RDK_BUILD_THREADSAFE_SSS:BOOL=ON \
           -D RDK_BUILD_CAIRO_SUPPORT:BOOL=ON \
