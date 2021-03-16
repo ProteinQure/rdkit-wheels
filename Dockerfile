@@ -29,8 +29,10 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D RDK_INSTALL_STATIC_LIBS:BOOL=OFF \
           -D RDK_USE_FLEXBISON:BOOL=OFF \
           -D RDK_TEST_MULTITHREADED:BOOL=OFF \
-          -D PYTHON_EXECUTABLE:FILEPATH=python`echo $PY_RELEASE | cut -d. -f 1-2` \
-          -D RDK_BOOST_PYTHON3_NAME=python`echo $PY_RELEASE | cut -d. -f 1-2 | sed 's/\.//g'` \
+          -D PYTHON_INCLUDE_DIR=/opt/python/cp39-cp39/include/ \
+          -D PYTHON_EXECUTABLE:FILEPATH=/opt/python/cp39-cp39/bin/python \
+          -D RDK_BOOST_PYTHON3_NAME=python39 \
+          -D BOOST_ROOT=/opt/boost/ \
           . -B .
 
 RUN make -j8
