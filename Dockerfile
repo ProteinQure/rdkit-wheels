@@ -4,7 +4,7 @@ FROM quay.io/pypa/manylinux2014_x86_64
 ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
 
 # Install build dependencies
-RUN yum install -y wget make gcc-c++ cmake flex bison inchi-devel cairo-devel eigen3-devel chrpath
+RUN yum install -y wget make gcc-c++ cmake flex bison cairo-devel eigen3-devel chrpath
 
 RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
     tar xfz Release_2020_09_5.tar.gz && \
@@ -13,8 +13,8 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
 RUN wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
 RUN tar -xzf boost_1_*
 RUN cd boost_1_*; \
-    ./bootstrap.sh --prefix=/opt/boost --with-python=/opt/python/cp39-cp39/bin/python; \
-    ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function" --with=all
+    ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/cp39-cp39/bin/python; \
+    ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function"
 
 # Install numpy
 RUN /opt/python/cp39-cp39/bin/python -m pip install numpy
