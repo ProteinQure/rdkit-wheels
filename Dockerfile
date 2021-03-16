@@ -63,8 +63,7 @@ RUN cp -r /usr/local/lib/python*/site-packages/rdkit rdkit
 RUN python3.9 setup.py bdist_wheel --py-limited-api $PY_VER
 
 # Use auditwheel to patch RPATH of the modules and strip unnecessary symbols
-RUN dnf install -y unzip
-RUN auditwheel repair --plat linux_x86_64 dist/pq_rdkit*.whl
+RUN auditwheel repair --plat manylinux2014_x86_64 dist/pq_rdkit*.whl
 RUN rename py3-none ${PY_VER}-${PY_VER} wheelhouse/*
 
 # Upload to package to PQ Pypi
