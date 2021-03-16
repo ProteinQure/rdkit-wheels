@@ -1,5 +1,8 @@
 FROM quay.io/pypa/manylinux2014_x86_64
 
+ARG PY_VER
+ARG RDKIT_VERSION
+
 # Set the LD path correctly
 ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
 
@@ -45,9 +48,6 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
 RUN make -j8
 RUN make install
 
-ARG PY_VER
-ARG RDKIT_VERSION
-
 # Install Python tooling + patchelf
 RUN ln -s /opt/python/${PY_VER}/bin/python /usr/bin/python-active
 RUN python-active -m ensurepip
@@ -69,4 +69,4 @@ RUN rename py3-none ${PY_VER} wheelhouse/*
 
 # Upload to package to PQ Pypi
 ARG PYPI_PASSWORD
-RUN python3.9 -m twine upload -u pqpypi -p $PYPI_PASSWORD --repository-url https://pypi.internal.pq/ wheelhouse/*
+RUN python-active -m twine upload -u pqpypi -p $PYPI_PASSWORD --repository-url https://pypi.internal.pq/ wheelhouse/*
