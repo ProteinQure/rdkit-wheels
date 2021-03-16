@@ -7,7 +7,11 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
     tar xfz Release_2020_09_5.tar.gz && \
     mv rdkit-Release_2020_09_5 /root/build/
 
-ENV LD_LIBRARY_PATH=/usr/local/lib/
+RUN wget https://phoenixnap.dl.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz
+RUN tar -xzf boost_1_*
+RUN cd boost_1_*; ./bootstrap.sh --prefix=/opt/boost; ./b2 install -j8 --prefix=/opt/boost --with=all
+
+ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/
 WORKDIR /root/build/
 ENV CXXFLAGS="-Wl,--as-needed"
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
