@@ -49,6 +49,7 @@ ARG PY_VER
 ARG RDKIT_VERSION
 
 # Install Python tooling + patchelf
+RUN ln -s /opt/python/cp39-cp39/bin/python /usr/bin/python3.9
 RUN python3.9 -m ensurepip
 RUN python3.9 -m pip install -U pip
 RUN python3.9 -m pip install wheel auditwheel twine
