@@ -1,15 +1,14 @@
 FROM quay.io/pypa/manylinux2014_x86_64
 
-ARG PY_VER
-ARG RDKIT_VERSION
-
 # Set the LD path correctly
+ARG PY_VER
 ENV LD_LIBRARY_PATH=/opt/python/${PY_VER}/lib/:/opt/boost/lib/
 
 # Install build dependencies
 RUN yum remove -y libX11-devel libXext-devel libXrender-devel mesa-libGL-devel libICE-devel libSM-devel
 RUN yum install -y wget make gcc-c++ cmake flex bison eigen3-devel chrpath freetype-devel
 
+ARG RDKIT_VERSION
 RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz && \
     tar xfz Release_${RDKIT_VERSION}.tar.gz && \
     mv rdkit-Release_${RDKIT_VERSION} /root/build/
@@ -25,6 +24,8 @@ RUN cd boost_1_*; \
 ARG NUMPY_VERSION
 RUN /opt/python/${PY_VER}/bin/python -m pip install numpy==${NUMPY_VERSION}
 
+# Install RDKit
+ARG PY_MAJOR_MINOR
 WORKDIR /root/build/
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D CMAKE_BUILD_TYPE=Release \
