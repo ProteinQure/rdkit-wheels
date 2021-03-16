@@ -12,7 +12,9 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
 
 RUN wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
 RUN tar -xzf boost_1_*
-RUN cd boost_1_*; ./bootstrap.sh --prefix=/opt/boost; ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function" --with=all
+RUN cd boost_1_*; \
+    ./bootstrap.sh --prefix=/opt/boost --with-python=/opt/python/cp39-cp39/bin/python; \
+    ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function" --with=all
 
 WORKDIR /root/build/
 ENV CXXFLAGS="-Wl,--as-needed"
