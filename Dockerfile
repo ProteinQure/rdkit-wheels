@@ -1,7 +1,7 @@
 FROM quay.io/pypa/manylinux2014_x86_64
 
 # Install build dependencies
-RUN dnf install -y wget make gcc-c++ cmake flex bison inchi-devel cairo-devel eigen3-devel chrpath boost-python3-devel
+RUN yum install -y wget make gcc-c++ cmake flex bison inchi-devel cairo-devel eigen3-devel chrpath boost-devel
 
 RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
     tar xfz Release_2020_09_5.tar.gz && \
