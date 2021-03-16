@@ -1,5 +1,8 @@
 FROM quay.io/pypa/manylinux2014_x86_64
 
+# Set the LD path correctly
+ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
+
 # Install build dependencies
 RUN yum install -y wget make gcc-c++ cmake flex bison inchi-devel cairo-devel eigen3-devel chrpath
 
