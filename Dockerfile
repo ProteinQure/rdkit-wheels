@@ -27,7 +27,8 @@ RUN /opt/python/${PY_VER}/bin/python -m pip install numpy==${NUMPY_VERSION}
 # Install RDKit
 ARG PY_MAJOR_MINOR
 WORKDIR /root/build/
-RUN cmake -D RDK_INSTALL_INTREE=OFF \
+RUN export PYTHON_HEADERS=/opt/python/${PY_VER}/include/python*/; \
+    cmake -D RDK_INSTALL_INTREE=OFF \
           -D CMAKE_BUILD_TYPE=Release \
           -D CMAKE_CXX_FLAGS="-Wno-deprecated-copy" \
           -D RDK_BUILD_INCHI_SUPPORT:BOOL=ON \
@@ -41,7 +42,7 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D RDK_INSTALL_STATIC_LIBS:BOOL=OFF \
           -D RDK_USE_FLEXBISON:BOOL=OFF \
           -D RDK_TEST_MULTITHREADED:BOOL=OFF \
-          -D PYTHON_INCLUDE_DIR=/opt/python/${PY_VER}/include/python${PY_MAJOR_MINOR}/ \
+          -D PYTHON_INCLUDE_DIR=${PYTHON_HEADERS} \
           -D PYTHON_EXECUTABLE:FILEPATH=/opt/python/${PY_VER}/bin/python \
           -D RDK_BOOST_PYTHON3_NAME=python`echo ${PY_MAJOR_MINOR} | sed 's/\.//g'` \
           -D BOOST_ROOT=/opt/boost/ \
