@@ -18,7 +18,7 @@ RUN cd boost_1_*; \
     ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function"
 
 # Install numpy
-RUN /opt/python/cp39-cp39/bin/python -m pip install numpy==1.16.6
+RUN /opt/python/${PY_VER}/bin/python -m pip install numpy==1.16.6
 
 WORKDIR /root/build/
 RUN cmake -D RDK_INSTALL_INTREE=OFF \
@@ -35,8 +35,8 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           -D RDK_INSTALL_STATIC_LIBS:BOOL=OFF \
           -D RDK_USE_FLEXBISON:BOOL=OFF \
           -D RDK_TEST_MULTITHREADED:BOOL=OFF \
-          -D PYTHON_INCLUDE_DIR=/opt/python/cp39-cp39/include/python3.9/ \
-          -D PYTHON_EXECUTABLE:FILEPATH=/opt/python/cp39-cp39/bin/python \
+          -D PYTHON_INCLUDE_DIR=/opt/python/${PY_VER}/include/python3.9/ \
+          -D PYTHON_EXECUTABLE:FILEPATH=/opt/python/${PY_VER}/bin/python \
           -D RDK_BOOST_PYTHON3_NAME=python39 \
           -D BOOST_ROOT=/opt/boost/ \
           . -B .
@@ -49,10 +49,10 @@ ARG PY_VER
 ARG RDKIT_VERSION
 
 # Install Python tooling + patchelf
-RUN ln -s /opt/python/cp39-cp39/bin/python /usr/bin/python3.9
-RUN python3.9 -m ensurepip
-RUN python3.9 -m pip install -U pip
-RUN python3.9 -m pip install wheel auditwheel twine
+RUN ln -s /opt/python/${PY_VER}/bin/python /usr/bin/python-active
+RUN python-active -m ensurepip
+RUN python-active -m pip install -U pip
+RUN python-active -m pip install wheel auditwheel twine
 RUN yum install -y patchelf
 
 # Copy skeleton for the Python package
@@ -61,11 +61,11 @@ WORKDIR /root/package/
 
 # Copy the source code and build a binary wheel
 RUN cp -r /usr/local/lib/python*/site-packages/rdkit rdkit
-RUN python3.9 setup.py bdist_wheel --py-limited-api $PY_VER
+RUN python-active setup.py bdist_wheel --py-limited-api `echo $PY_VER | cut -d- -f1`
 
 # Use auditwheel to patch RPATH of the modules and strip unnecessary symbols
 RUN auditwheel repair --plat manylinux2014_x86_64 dist/pq_rdkit*.whl
-RUN rename py3-none ${PY_VER}-${PY_VER} wheelhouse/*
+RUN rename py3-none ${PY_VER} wheelhouse/*
 
 # Upload to package to PQ Pypi
 ARG PYPI_PASSWORD
