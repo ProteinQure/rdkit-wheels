@@ -7,9 +7,9 @@ ENV LD_LIBRARY_PATH=/opt/python/cp39-cp39/lib/:/opt/boost/lib/
 RUN yum remove -y libX11-devel libXext-devel libXrender-devel mesa-libGL-devel libICE-devel libSM-devel
 RUN yum install -y wget make gcc-c++ cmake flex bison eigen3-devel chrpath freetype-devel
 
-RUN wget https://github.com/rdkit/rdkit/archive/Release_2020_09_5.tar.gz && \
-    tar xfz Release_2020_09_5.tar.gz && \
-    mv rdkit-Release_2020_09_5 /root/build/
+RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz && \
+    tar xfz Release_${RDKIT_VERSION}.tar.gz && \
+    mv rdkit-Release_${RDKIT_VERSION} /root/build/
 
 RUN wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
 RUN tar -xzf boost_1_*
