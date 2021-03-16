@@ -43,7 +43,6 @@ RUN cmake -D RDK_INSTALL_INTREE=OFF \
           . -B .
 
 RUN make -j8
-#make install DESTDIR=%{buildroot}
 RUN make install
 
 ARG PY_VER
