@@ -2,7 +2,7 @@
 import os
 from setuptools import find_packages, setup
 
-RDKIT_VERSION = os.getenv("RDKIT_VERSION")
+RDKIT_VERSION = os.getenv("RDKIT_VERSION").replace('_', '.')
 
 # Package name
 package_name = "pq_rdkit"
