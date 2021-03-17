@@ -27,7 +27,7 @@ RUN /opt/python/${PY_VER}/bin/python -m pip install numpy==${NUMPY_VERSION}
 # Install RDKit
 ARG PY_MAJOR_MINOR
 WORKDIR /root/build/
-RUN export PYTHON_HEADERS=/opt/python/${PY_VER}/include/python*/; \
+RUN export PYTHON_HEADERS=`echo -n /opt/python/${PY_VER}/include/python*`; \
     cmake -D RDK_INSTALL_INTREE=OFF \
           -D CMAKE_BUILD_TYPE=Release \
           -D CMAKE_CXX_FLAGS="-Wno-deprecated-copy" \
