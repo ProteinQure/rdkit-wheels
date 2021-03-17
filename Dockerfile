@@ -16,8 +16,14 @@ RUN wget https://github.com/rdkit/rdkit/archive/Release_${RDKIT_VERSION}.tar.gz 
 ARG BOOST_VERSION
 RUN wget https://dl.bintray.com/boostorg/release/`echo ${BOOST_VERSION} | sed 's/_/./g'`/source/boost_${BOOST_VERSION}.tar.gz
 RUN tar -xzf boost_1_*
+
+# Workaround for boost detecting python headers
 RUN cd boost_1_*; \
-    ./bootstrap.sh --prefix=/opt/boost --with-libraries=system,iostreams,python,serialization,regex --with-python=/opt/python/${PY_VER}/bin/python; \
+    export CPLUS_INCLUDE_PATH=`echo -n /opt/python/${PY_VER}/include/python*`; \
+    ./bootstrap.sh \
+        --prefix=/opt/boost \
+        --with-libraries=system,iostreams,python,serialization,regex \
+        --with-python=/opt/python/${PY_VER}/bin/python; \
     ./b2 install -j8 --prefix=/opt/boost cxxflags="-Wno-deprecated-declarations -Wno-unused-function"
 
 # Install numpy
